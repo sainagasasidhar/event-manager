@@ -5,7 +5,7 @@ import createUser from './services/user';
 
 const router = Router();
 
-router.post('users/signup', (req, res) => {
+router.post('/users/signup', (req, res) => {
     if (!userInputValidator(req.body)) {
         return res.status(400).json("User Input Validation Failed");
     } else {
@@ -18,11 +18,15 @@ router.post('users/signup', (req, res) => {
     }
 })
 
+router.get('/users/signup', (req, res) => {
+    return res.status(200).json("HEllo");
+})
+
 router.post('users/login', verifyToken, (req, res) => {
 
 })
 
-router.post('/events', verifyToken, (req, res) => {
+router.post('events', verifyToken, (req, res) => {
     
 })
 

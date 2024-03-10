@@ -9,7 +9,7 @@ const port = 3000;
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: true }));
-app.use('/', routes_1.default);
+app.use('/v1', routes_1.default);
 app.listen(port, () => {
     console.log(`Server is listing on port ${port}`);
 });
