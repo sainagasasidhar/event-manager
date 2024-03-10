@@ -1,9 +1,13 @@
 "use strict";
-let jwtToken = require('jsonwebtoken');
-const user = require('../services/user.ts');
-const verifyToken = (req, res, next) => {
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
+const user_1 = __importDefault(require("../services/user"));
+function verifyToken(req, res, next) {
     if (req.headers && req.headers.authorization) {
-        jwtToken.verify(req.headers.authorization, "user_signin", function (err, decode) {
+        jsonwebtoken_1.default.verify(req.headers.authorization, "user_signin", function (err, decode) {
             if (err) {
                 req.user = undefined;
                 req.message = "Header verification failed";
@@ -11,7 +15,7 @@ const verifyToken = (req, res, next) => {
             }
             else {
                 let id = decode.id;
-                let userName = user.findUserById(id);
+                let userName = (0, user_1.default)(id);
                 req.user = userName;
                 next();
             }
@@ -22,5 +26,5 @@ const verifyToken = (req, res, next) => {
         req.message = "Authorization header not found";
         next();
     }
-};
-module.exports = verifyToken;
+}
+exports.default = verifyToken;

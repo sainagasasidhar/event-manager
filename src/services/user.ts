@@ -1,7 +1,7 @@
 import  fs from 'fs';
 import bcrypt from 'bcrypt'
 import uuid from 'uuid';
-let users = require('../data/users.json');
+import users from '../../data/users.json';
 
 type event = {
     id : string
@@ -24,11 +24,17 @@ type response = {
     response :string;
     status: number;
 }
-function createUser (input: user): response {
-    let res = {response:"",status:400};
+export function createUser (input: user): user {
+    let usersArr = new Array<user>();
+    if (users) {
+        usersArr = users;
+    }
+    // let res = {response:"",status:400};
     input.password = bcrypt.hashSync(input.password,8);
     input.id = uuid.v4();
-    return res;
+    usersArr.push(input);
+    fs.writeFileSync('data/users.json', JSON.stringify(users,null,4), {encoding: 'utf8', flag: 'w'});
+    return input;
 }
 
 export default function findUserById (id:string): any {
@@ -38,7 +44,7 @@ export default function findUserById (id:string): any {
     return userById[0];
 }
 
-export const findUserByEmail = (email:string):any =>{
+export function findUserByEmail (email:string) {
     let userByEmail= users.filter(function(userIn:user) {
         return userIn.email == email;
     });

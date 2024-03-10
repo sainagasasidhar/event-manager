@@ -1,6 +1,6 @@
 import findUserByEmail from '../services/user';
-let jwt = require('jsonwebtoken');
-const bcrypt = require('bcrypt');
+import jwt from 'jsonwebtoken';
+import bcrypt from 'bcrypt';
 
 export default function userInputValidator(input:any) : boolean {
     if(input) {
