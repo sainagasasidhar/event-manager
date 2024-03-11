@@ -1,15 +1,15 @@
-import findUserByEmail from '../services/user';
+import * as user from '../services/user';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 
 export default function userInputValidator(input:any) : boolean {
     if(input) {
-        let emailregex = "/^([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})$";
+        // let emailregex = "/^([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})$";
         if (!input.email) return false;
         if (!input.password) return false;
         if (!input.firstname) return false;
         if (!input.lastname) return false;
-        if (!input.email.match(emailregex)) return false;
+        // if (!input.email.match(emailregex)) return false;
         else return true;
     } else {
         return false;
@@ -17,7 +17,7 @@ export default function userInputValidator(input:any) : boolean {
 };
 export function userLoginValidation(input:any):any {
     if (input) {
-       let userFound = findUserByEmail (input.email)
+       let userFound = user.findUserByEmail (input.email)
        if (userFound) {
             bcrypt.compareSync(input.password, userFound.password)
             let token = jwt.sign({id: userFound.id,role:userFound.role}, "user_signin", {expiresIn: 86400});

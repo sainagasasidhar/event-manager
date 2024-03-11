@@ -1,2 +1,20 @@
 [
+    {
+        "email": "dave@gmail.com",
+        "password": "$2b$08$G9x.2fqatX7v5u.NGfW8kuBFvpyTrOkNgXtjttes9G5StB4DnW3KW",
+        "firstname": "Dave",
+        "lastname": "Andreah",
+        "locate": "Hyderabad",
+        "id": "ed3d823a-8901-4212-8421-67e060532b2e",
+        "role": "admin"
+    },
+    {
+        "email": "davepatel@gmail.com",
+        "password": "$2b$08$RHrkyq64FBTkgYPn8CXTRegyiGtKh1VmM1ULi0A1x46WrrPqvASBm",
+        "firstname": "David",
+        "lastname": "Andreah",
+        "locate": "Vizag",
+        "id": "7ffec19b-a4e4-4a4e-a323-be544121056d",
+        "role": "user"
+    }
 ]

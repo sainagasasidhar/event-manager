@@ -1,6 +1,6 @@
 import  fs from 'fs';
 import bcrypt from 'bcrypt'
-import uuid from 'uuid';
+import { uuid } from 'uuidv4';
 import users from '../../data/users.json';
 
 type event = {
@@ -25,28 +25,28 @@ type response = {
     status: number;
 }
 export function createUser (input: user): user {
-    let usersArr = new Array<user>();
+    let usersArr = new Array<any>();
     if (users) {
         usersArr = users;
     }
     // let res = {response:"",status:400};
     input.password = bcrypt.hashSync(input.password,8);
-    input.id = uuid.v4();
+    input.id = uuid();
     usersArr.push(input);
-    fs.writeFileSync('data/users.json', JSON.stringify(users,null,4), {encoding: 'utf8', flag: 'w'});
+    fs.writeFileSync('data/users.json', JSON.stringify(usersArr,null,4), {encoding: 'utf8', flag: 'w'});
     return input;
 }
 
 export default function findUserById (id:string): any {
-    let userById= users.filter(function(userIn:user) {
-        return userIn.id == id;
+    let userById= users.filter( (userById:any) => {
+        return userById.id == id;
     });
     return userById[0];
 }
 
 export function findUserByEmail (email:string) {
-    let userByEmail= users.filter(function(userIn:user) {
-        return userIn.email == email;
+    let userByEmail= users.filter( (userByEmail:any) => {
+        return userByEmail.email == email;
     });
     return userByEmail[0];
 }

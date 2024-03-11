@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.findUserByEmail = exports.createUser = void 0;
 const fs_1 = __importDefault(require("fs"));
 const bcrypt_1 = __importDefault(require("bcrypt"));
-const uuid_1 = __importDefault(require("uuid"));
+const uuidv4_1 = require("uuidv4");
 const users_json_1 = __importDefault(require("../../data/users.json"));
 function createUser(input) {
     let usersArr = new Array();
@@ -15,22 +15,22 @@ function createUser(input) {
     }
     // let res = {response:"",status:400};
     input.password = bcrypt_1.default.hashSync(input.password, 8);
-    input.id = uuid_1.default.v4();
+    input.id = (0, uuidv4_1.uuid)();
     usersArr.push(input);
-    fs_1.default.writeFileSync('data/users.json', JSON.stringify(users_json_1.default, null, 4), { encoding: 'utf8', flag: 'w' });
+    fs_1.default.writeFileSync('data/users.json', JSON.stringify(usersArr, null, 4), { encoding: 'utf8', flag: 'w' });
     return input;
 }
 exports.createUser = createUser;
 function findUserById(id) {
-    let userById = users_json_1.default.filter(function (userIn) {
-        return userIn.id == id;
+    let userById = users_json_1.default.filter((userById) => {
+        return userById.id == id;
     });
     return userById[0];
 }
 exports.default = findUserById;
 function findUserByEmail(email) {
-    let userByEmail = users_json_1.default.filter(function (userIn) {
-        return userIn.email == email;
+    let userByEmail = users_json_1.default.filter((userByEmail) => {
+        return userByEmail.email == email;
     });
     return userByEmail[0];
 }
